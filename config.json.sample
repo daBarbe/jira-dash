@@ -1,0 +1,6 @@
+{
+  "dash_mac_address": "aa:bb:cc:dd:ee:ff",
+  "host": "hostname.atlassian.net",
+  "username": "user",
+  "issue": "JIRA-123"
+}
