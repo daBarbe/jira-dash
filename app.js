@@ -1,4 +1,5 @@
 var dash_button = require('node-dash-button'),
+    moment = require('moment'),
     prompt = require('prompt'),
     config = require('./config.json'),
     router = require('./router');
@@ -25,10 +26,10 @@ dash.on('detected', function (){
 
     if (working) {
         working = false;
-        var now = new Date;
+        var now = moment();
         router.logTime(config.host, config.issue, startTime, now, config.username, password);
     } else {
         working = true;
-        startTime = new Date;
+        startTime = moment();
     }
 });

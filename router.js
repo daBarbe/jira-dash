@@ -1,4 +1,5 @@
-var request = require('request');
+var request = require('request'),
+    moment = require('moment');
 
 var self = {
     logTime: function(host, issue, startTime, endTime, username, password){
@@ -14,7 +15,7 @@ var self = {
 
         options.body = {
             "comment": "Logged with JiraDash.",
-            "started": startTime.toISOString(),
+            "started": startTime.format('YYYY-MM-DDTHH:mm:ss.SSSZZ'),
             "timeSpentSeconds": (endTime-startTime)/1000
         };
 
