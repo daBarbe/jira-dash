@@ -1,14 +1,14 @@
-var dash_button = require('node-dash-button'),
+const
+    dash_button = require('node-dash-button'),
     moment = require('moment'),
     prompt = require('prompt'),
     fs = require('fs'),
     config = require('./config.json'),
     router = require('./router');
 
-var dash = dash_button(config.dash_mac_address),
-    password = null,
-    working = false,
-    startTime = null;
+var
+    dash = dash_button(config.dash_mac_address),
+    password = null;
 
 prompt.get([{
     name: 'password',
@@ -21,8 +21,9 @@ prompt.get([{
 },
 {
     name: 'issue',
-    description: 'Enter the issue ID ' + (config.issue ? '(' + config.issue + ')' : ''),
-    required: true,
+    description: 'Enter the issue ID',
+    required: !config.issue,
+    default: config.issue
 }], function (err, result) {
     password = result.password;
     config.issue = result.issue;
@@ -33,13 +34,5 @@ prompt.get([{
 
 dash.on('detected', function (){
     console.log('Dash Button Found');
-
-    if (working) {
-        working = false;
-        var now = moment();
-        router.logTime(config.host, config.issue, startTime, now, config.username, password);
-    } else {
-        working = true;
-        startTime = moment();
-    }
+    router.doAction(password);
 });
